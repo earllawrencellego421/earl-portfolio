@@ -1,0 +1,25 @@
+earl-portfolio/
+├── Enrollment System/
+│   ├── phone/
+│   │   ├── loginuser1.png
+│   │   ├── loginuser2.png
+│   │   ├── user1.png
+│   │   ├── user2.png
+│   │   ├── user3.png
+│   │   ├── useregister1.png
+│   │   ├── useregister2.png
+│   │   └── userlogin.png
+│   ├── admin documents.png
+│   ├── adminaccepted.png
+│   ├── admindashboard.png
+│   ├── admindelete.png
+│   ├── adminpending.png
+│   └── landingpage.png
+│
+├── Online Flight Booking System/
+│   ├── OnlineFlightBookingSystemadmin.png
+│   ├── OnlineFlightBookingSystemuser1.png
+│   └── OnlineFlightBookingSystemuser2.png
+│
+├── earl.jpg
+└── index.html

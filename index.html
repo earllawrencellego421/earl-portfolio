@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Earl Lawrence — BSIT Student & OJT Applicant. Portfolio featuring an Enrollment System and an Online Flight Booking System.">
+<meta name="theme-color" content="#0F172A">
+<title>Earl Lawrence — BSIT Student &amp; OJT Applicant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root{
+    --bg-primary: #0F172A;
+    --bg-secondary: #1A2540;
+    --bg-tertiary: #242F45;
+    --text-primary: #F1F5F9;
+    --text-secondary: #CBD5E1;
+    --text-muted: #94A3B8;
+    --accent: #FF6B35;
+    --accent-light: #FF8555;
+    --accent-dark: #E55A2B;
+    --accent-faint: #2D1F1A;
+    --line: #334155;
+    --radius: 8px;
+    --font-display: "Space Grotesk", "Inter", sans-serif;
+    --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  html{ scroll-behavior: smooth; background: var(--bg-primary); }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body{
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+  img{ display:block; max-width: 100%; }
+
+  ::selection{ background: var(--accent-faint); color: var(--accent-light); }
+
+  :focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .wrap{ max-width: 1120px; margin: 0 auto; padding: 0 2rem; }
+
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.9rem;
+  }
+  .eyebrow::before{
+    content: '';
+    width: 22px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    display: inline-block;
+  }
+
+  .section-title{
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 2.6vw, 2.5rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+  .section-lede{
+    color: var(--text-secondary);
+    max-width: 56ch;
+    margin-bottom: 3rem;
+    font-size: 1.02rem;
+  }
+
+  .frame{
+    position: relative;
+    border: 1px solid var(--line);
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+  }
+  .frame::before, .frame::after{
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    display: none;
+  }
+  .frame::before{
+    top: -1px; left: -1px;
+    border-top: 2px solid var(--accent);
+    border-left: 2px solid var(--accent);
+  }
+  .frame::after{
+    bottom: -1px; right: -1px;
+    border-bottom: 2px solid var(--accent);
+    border-right: 2px solid var(--accent);
+  }
+
+  .fig-caption{
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.6rem;
+  }
+
+  /* ---------- Nav ---------- */
+  nav{
+    position: fixed;
+    top: 0; width: 100%;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    z-index: 1000;
+    padding: 0.9rem 0;
+  }
+  .nav-container{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo{
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+  .logo img{
+    height: 36px; width: 36px;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+  }
+  .nav-links{ display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a{
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding-bottom: 3px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .nav-links a:hover, .nav-links a.active{
+    color: var(--accent-light);
+    border-color: var(--accent);
+  }
+  @media (max-width: 800px){ .nav-links{ display: none; } }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 9.5rem 2rem 5rem;
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+  .hero-badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-faint);
+    border: 1px solid var(--accent);
+    border-radius: 50px;
+    padding: 0.5rem 1.1rem;
+    margin-bottom: 1.6rem;
+  }
+  .hero-badge .dot{
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .hero-title{
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5.2vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 1.1rem;
+  }
+  .hero-title span{ 
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-subtitle{
+    font-size: 1.08rem;
+    color: var(--text-secondary);
+    max-width: 46ch;
+    margin-bottom: 2.2rem;
+  }
+  .hero-buttons{ display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn{
+    padding: 0.95rem 1.8rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    font-family: var(--font-body);
+  }
+  .btn-primary{
+    background: var(--accent);
+    color: var(--bg-primary);
+  }
+  .btn-primary:hover{ 
+    background: var(--accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+  }
+  .btn-secondary{
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+  }
+  .btn-secondary:hover{ 
+    background: var(--accent-faint);
+    transform: translateY(-2px);
+  }
+
+  .hero-meta{
+    display: flex;
+    gap: 1.6rem;
+    margin-top: 2.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .hero-meta strong{ color: var(--accent-light); font-weight: 600; }
+
+  .hero-photo-wrap{ text-align: center; }
+  .hero-photo{
+    padding: 0.6rem;
+  }
+  .hero-photo img{
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 2px solid var(--accent);
+  }
+
+  /* ---------- How I Work ---------- */
+  .approach{ max-width: 1120px; margin: 6rem auto 0; padding: 0 2rem; }
+  .approach-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .approach-card{
+    background: var(--bg-secondary);
+    padding: 2rem 1.8rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+  }
+  .approach-card:hover{
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.1);
+  }
+  .approach-card .num{
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+    font-weight: 700;
+  }
+  .approach-card h3{
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    margin-bottom: 0.6rem;
+    color: var(--text-primary);
+  }
+  .approach-card p{ color: var(--text-secondary); font-size: 0.95rem; }
+
+  /* ---------- Projects ---------- */
+  .projects{ max-width: 1120px; margin: 7rem auto 0; padding: 0 2rem; }
+  .project{
+    margin-bottom: 3.5rem;
+    padding: 2.2rem;
+    border: 1px solid var(--line);
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+  }
+  .project:hover{
+    border-color: var(--accent);
+    box-shadow: 0 20px 40px rgba(255, 107, 53, 0.08);
+  }
+  .project-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.4rem;
+  }
+  .project-head h3{
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .project-head p{ color: var(--text-secondary); max-width: 56ch; font-size: 0.98rem; }
+  .project-tech{ display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .tech-tag{
+    font-family: var(--font-mono);
+    background: var(--accent-faint);
+    color: var(--accent-light);
+    border: 1px solid var(--accent);
+    padding: 0.4rem 0.85rem;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+  }
+
+  .cover-btn{
+    position: relative;
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    text-align: left;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .cover-btn img{ width: 100%; aspect-ratio: 16/10; object-fit: cover; }
+  .cover-overlay{
+    position: absolute; inset: 0;
+    background: rgba(15, 23, 42, 0.8);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+    backdrop-filter: blur(4px);
+  }
+  .cover-btn:hover .cover-overlay,
+  .cover-btn:focus-visible .cover-overlay{ opacity: 1; }
+  .cover-overlay .count{ font-size: 0.78rem; color: var(--accent-light); }
+
+  .project-strip{
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+    overflow-x: auto;
+    padding-bottom: 0.4rem;
+  }
+  .project-strip button{
+    flex: 0 0 auto;
+    width: 90px; height: 90px;
+    padding: 0;
+    border: 2px solid var(--line);
+    background: var(--bg-tertiary);
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: var(--radius);
+    transition: all 0.2s ease;
+  }
+  .project-strip button:hover, .project-strip button:focus-visible{ 
+    border-color: var(--accent);
+    transform: scale(1.05);
+  }
+  .project-strip img{ width: 100%; height: 100%; object-fit: cover; }
+
+  .strip-label{
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 1.2rem 0 -0.3rem;
+    font-weight: 600;
+  }
+
+  /* ---------- Skills ---------- */
+  .skills{ max-width: 1120px; margin: 7rem auto 0; padding: 0 2rem; }
+  .skills-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-card{ 
+    padding: 1.8rem;
+    border: 1px solid var(--line);
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+  }
+  .skill-card:hover{
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.1);
+  }
+  .skill-card h3{
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-light);
+    margin-bottom: 1.1rem;
+    font-weight: 700;
+  }
+  .skill-tags{ display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .skill-tags span{
+    background: var(--bg-tertiary);
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  .skill-card.ai{ border-color: var(--accent); background: rgba(255, 107, 53, 0.05); }
+  .skill-card.ai .skill-tags span{ background: var(--accent-faint); border-color: var(--accent); color: var(--accent-light); }
+  .skill-card p.note{ margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted); }
+
+  /* ---------- Education / Path ---------- */
+  .path{ max-width: 1120px; margin: 7rem auto 0; padding: 0 2rem; }
+  .path-list{ display: flex; flex-direction: column; }
+  .path-item{
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.5rem;
+    padding: 1.8rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    background: var(--bg-secondary);
+    transition: all 0.3s ease;
+  }
+  .path-item:hover{
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.08);
+  }
+  .path-date{
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent-light);
+    padding-top: 0.2rem;
+    font-weight: 600;
+  }
+  .path-content h4{
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+  }
+  .path-role{ color: var(--accent-light); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .path-content p{ color: var(--text-secondary); font-size: 0.95rem; max-width: 60ch; }
+
+  /* ---------- Contact ---------- */
+  .contact{ max-width: 1120px; margin: 7rem auto 0; padding: 0 2rem; }
+  .contact-panel{
+    padding: 4rem 2.5rem;
+    text-align: center;
+    border: 1.5px solid var(--accent);
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), transparent);
+    border-radius: var(--radius);
+  }
+  .contact-panel .section-title{ margin-bottom: 0.8rem; }
+  .contact-panel p{ color: var(--text-secondary); max-width: 50ch; margin: 0 auto 2.5rem; }
+  .contact-links{ display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .contact-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 1.6rem;
+    border: 1.5px solid var(--accent);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--accent-light);
+    background: var(--accent-faint);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+  }
+  .contact-link:hover{ 
+    background: var(--accent);
+    color: var(--bg-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+  }
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 2.5rem;
+    text-align: center;
+    margin-top: 6rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+  .footer-links{ display: flex; justify-content: center; gap: 1.8rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
+  .footer-links a{ text-decoration: none; color: var(--text-secondary); transition: color 0.2s ease; }
+  .footer-links a:hover{ color: var(--accent); }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox{
+    position: fixed; inset: 0;
+    background: rgba(15, 23, 42, 0.95);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 2rem;
+    backdrop-filter: blur(8px);
+  }
+  .lightbox.open{ display: flex; }
+  .lightbox-inner{ max-width: 900px; width: 100%; }
+  .lightbox img{
+    width: 100%;
+    max-height: 72vh;
+    object-fit: contain;
+    border: 1px solid var(--line);
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+  }
+  .lightbox-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+    font-size: 0.82rem;
+  }
+  .lightbox-controls{ display: flex; gap: 0.8rem; align-items: center; }
+  .lightbox button{
+    background: transparent;
+    border: 1.5px solid var(--accent);
+    color: var(--accent-light);
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .lightbox button:hover{ 
+    border-color: var(--accent-light);
+    background: var(--accent-faint);
+  }
+
+  /* ---------- Fade in ---------- */
+  .fade-in{ opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible{ opacity: 1; transform: translateY(0); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .hero{ grid-template-columns: 1fr; padding-top: 8rem; text-align: left; }
+    .hero-photo-wrap{ order: -1; max-width: 220px; }
+  }
+  @media (max-width: 640px){
+    .hero-buttons{ flex-direction: column; align-items: stretch; }
+    .btn{ justify-content: center; }
+    .path-item{ grid-template-columns: 1fr; gap: 0.4rem; }
+    .contact-panel{ padding: 2.5rem 1.5rem; }
+    .project{ padding: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-container">
+    <a href="#home" class="logo">
+      <img src="earl.jpg" alt="Earl Lawrence">
+      EARL
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#path">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section id="home" class="hero">
+  <div>
+    <div class="hero-badge"><span class="dot"></span> Open for On-the-Job Training</div>
+    <h1 class="hero-title">Earl Lawrence,<br>I build the systems <span>behind the screen.</span></h1>
+    <p class="hero-subtitle">BSIT student focused on web development, database design, and networking. Below are two working systems I built end to end — an enrollment platform and a flight booking system — with real screens, not mockups.</p>
+    <div class="hero-buttons">
+      <a href="#projects" class="btn btn-primary">View my projects →</a>
+      <a href="#contact" class="btn btn-secondary">Get in touch</a>
+    </div>
+    <div class="hero-meta">
+      <span><strong>Status</strong> — BSIT student, available for OJT</span>
+      <span><strong>Focus</strong> — Web · Database · Networking</span>
+    </div>
+  </div>
+  <div class="hero-photo-wrap">
+    <div class="hero-photo frame">
+      <img src="earl.jpg" alt="Portrait of Earl Lawrence">
+    </div>
+    <p class="fig-caption">Fig. 1 — Profile</p>
+  </div>
+</section>
+
+<!-- How I Work -->
+<section class="approach">
+  <div class="eyebrow">§01 — How I work</div>
+  <div class="approach-grid">
+    <div class="approach-card fade-in">
+      <span class="num">01</span>
+      <h3>Clean, readable code</h3>
+      <p>I write code meant to be maintained, not just to run — clear naming, sensible structure, comments where they earn their keep.</p>
+    </div>
+    <div class="approach-card fade-in">
+      <span class="num">02</span>
+      <h3>Learn the tools fast</h3>
+      <p>I pick up new frameworks and stacks quickly, and I'm comfortable using AI tools to prototype, debug, and move faster without cutting corners.</p>
+    </div>
+    <div class="approach-card fade-in">
+      <span class="num">03</span>
+      <h3>Reliable under a team</h3>
+      <p>I communicate early when something's blocked, document what I build, and show up ready to contribute from day one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="projects">
+  <div class="eyebrow">§02 — Featured projects</div>
+  <h2 class="section-title">Systems I've built</h2>
+  <p class="section-lede">Both projects below are click-through screenshots of working applications — click any cover image to browse the full set of screens, including the mobile views.</p>
+
+  <!-- Project 1: Enrollment System -->
+  <div class="project fade-in">
+    <div class="project-head">
+      <div>
+        <h3>Enrollment System</h3>
+        <p>An admin-managed enrollment platform with a full application workflow — students submit records and documents, and admins review, accept, or decline them from a dashboard. Includes a companion mobile flow for registration and login.</p>
+      </div>
+      <div class="project-tech">
+        <span class="tech-tag">Full-stack web app</span>
+        <span class="tech-tag">Admin dashboard</span>
+        <span class="tech-tag">Document upload</span>
+        <span class="tech-tag">Mobile-responsive</span>
+      </div>
+    </div>
+    <button class="cover-btn" onclick="openGallery('enrollment', 0)">
+      <img src="Enrollment%20System/admindashboard.png" alt="Enrollment System admin dashboard">
+      <div class="cover-overlay">
+        <span>Browse all screens</span>
+        <span class="count">14 images — desktop &amp; mobile</span>
+      </div>
+    </button>
+    <p class="strip-label">Desktop</p>
+    <div class="project-strip" id="strip-enrollment-desktop"></div>
+    <p class="strip-label">Mobile</p>
+    <div class="project-strip" id="strip-enrollment-mobile"></div>
+  </div>
+
+  <!-- Project 2: Online Flight Booking System -->
+  <div class="project fade-in">
+    <div class="project-head">
+      <div>
+        <h3>Online Flight Booking System</h3>
+        <p>A booking platform covering both sides of the transaction — an admin panel for managing flights and a user-facing flow for searching and booking a trip.</p>
+      </div>
+      <div class="project-tech">
+        <span class="tech-tag">Full-stack web app</span>
+        <span class="tech-tag">Booking flow</span>
+        <span class="tech-tag">Admin panel</span>
+      </div>
+    </div>
+    <button class="cover-btn" onclick="openGallery('flight', 0)">
+      <img src="Online%20Flight%20Booking%20System/OnlineFlightBookingSystemuser1.png" alt="Online Flight Booking System user view">
+      <div class="cover-overlay">
+        <span>Browse all screens</span>
+        <span class="count">3 images</span>
+      </div>
+    </button>
+    <p class="strip-label">Screens</p>
+    <div class="project-strip" id="strip-flight"></div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="skills">
+  <div class="eyebrow">§03 — Skills</div>
+  <h2 class="section-title">Toolkit</h2>
+  <p class="section-lede">Grouped by where I use them, not ranked by made-up percentages.</p>
+  <div class="skills-grid">
+    <div class="skill-card fade-in">
+      <h3>Frontend</h3>
+      <div class="skill-tags">
+        <span>HTML</span><span>CSS</span><span>JavaScript</span><span>React</span>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <h3>Backend &amp; Database</h3>
+      <div class="skill-tags">
+        <span>Node.js</span><span>PHP</span><span>Python</span><span>SQL</span><span>PostgreSQL</span><span>MongoDB</span>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <h3>Networking &amp; Systems</h3>
+      <div class="skill-tags">
+        <span>Linux</span><span>Cisco fundamentals</span><span>Network security basics</span>
+      </div>
+    </div>
+    <div class="skill-card ai fade-in">
+      <h3>AI-assisted development</h3>
+      <div class="skill-tags">
+        <span>Claude</span><span>ChatGPT</span><span>Gemini Pro</span><span>v0</span>
+      </div>
+      <p class="note">Used throughout the build process — prototyping UI, debugging, and speeding up repetitive work.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Education / Path -->
+<section id="path" class="path">
+  <div class="eyebrow">§04 — Education</div>
+  <h2 class="section-title">Path so far</h2>
+  <div class="path-list">
+    <div class="path-item fade-in">
+      <div class="path-date">2021 — Present</div>
+      <div class="path-content">
+        <h4>Bachelor of Science in Information Technology</h4>
+        <div class="path-role">BSIT Student</div>
+        <p>Coursework centered on web development, database systems, and networking. The Enrollment System and Online Flight Booking System above were built as part of this track.</p>
+      </div>
+    </div>
+    <div class="path-item fade-in">
+      <div class="path-date">Now</div>
+      <div class="path-content">
+        <h4>Looking for On-the-Job Training</h4>
+        <div class="path-role">OJT Applicant</div>
+        <p>Ready to apply what I've built in a real team environment — open to web development, database, or IT support roles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact">
+  <div class="contact-panel">
+    <div class="eyebrow" style="justify-content:center;">§05 — Contact</div>
+    <h2 class="section-title">Let's talk</h2>
+    <p>I'm looking for an OJT placement where I can contribute from day one. Reach out if there's a fit.</p>
+    <div class="contact-links">
+      <a href="tel:+639913484223" class="contact-link">📱 +63 991 348 4223</a>
+      <a href="https://www.facebook.com/renzllego73" class="contact-link" target="_blank" rel="noopener">📘 Facebook</a>
+      <a href="https://github.com/earllawrencellego421" class="contact-link" target="_blank" rel="noopener">🐙 GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <p>© 2024 Earl Lawrence. All rights reserved.</p>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-bar">
+      <span id="lightbox-caption"></span>
+      <div class="lightbox-controls">
+        <button onclick="stepGallery(-1)" aria-label="Previous image">← Prev</button>
+        <span id="lightbox-count"></span>
+        <button onclick="stepGallery(1)" aria-label="Next image">Next →</button>
+        <button onclick="closeGallery()" aria-label="Close">✕ Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const galleries = {
+    enrollment: [
+      { src: "Enrollment%20System/landingpage.png", caption: "Landing page" },
+      { src: "Enrollment%20System/admindashboard.png", caption: "Admin — dashboard" },
+      { src: "Enrollment%20System/adminpending.png", caption: "Admin — pending applications" },
+      { src: "Enrollment%20System/adminaccepted.png", caption: "Admin — accepted applications" },
+      { src: "Enrollment%20System/admindelete.png", caption: "Admin — manage / delete records" },
+      { src: "Enrollment%20System/admin%20documents.png", caption: "Admin — document review" },
+      { src: "Enrollment%20System/phone/user1.jpg", caption: "Mobile — user view 1" },
+      { src: "Enrollment%20System/phone/user2.jpg", caption: "Mobile — user view 2" },
+      { src: "Enrollment%20System/phone/user3.jpg", caption: "Mobile — user view 3" },
+      { src: "Enrollment%20System/phone/userlogin.jpg", caption: "Mobile — login" },
+      { src: "Enrollment%20System/phone/useregister1.jpg", caption: "Mobile — registration 1" },
+      { src: "Enrollment%20System/phone/useregister2.jpg", caption: "Mobile — registration 2" },
+      { src: "Enrollment%20System/phone/loginuser1.jpg", caption: "Mobile — login flow 1" },
+      { src: "Enrollment%20System/phone/loginuser2.jpg", caption: "Mobile — login flow 2" }
+    ],
+    flight: [
+      { src: "Online%20Flight%20Booking%20System/OnlineFlightBookingSystemadmin.png", caption: "Admin panel" },
+      { src: "Online%20Flight%20Booking%20System/OnlineFlightBookingSystemuser1.png", caption: "Booking flow — step 1" },
+      { src: "Online%20Flight%20Booking%20System/OnlineFlightBookingSystemuser2.png", caption: "Booking flow — step 2" }
+    ]
+  };
+
+  let currentGallery = null;
+  let currentIndex = 0;
+
+  function buildStrips(){
+    const enrollmentDesktop = galleries.enrollment.slice(0, 6);
+    const enrollmentMobile = galleries.enrollment.slice(6);
+    fillStrip('strip-enrollment-desktop', 'enrollment', enrollmentDesktop, 0);
+    fillStrip('strip-enrollment-mobile', 'enrollment', enrollmentMobile, 6);
+    fillStrip('strip-flight', 'flight', galleries.flight, 0);
+  }
+
+  function fillStrip(elId, key, items, offset){
+    const el = document.getElementById(elId);
+    items.forEach((item, i) => {
+      const btn = document.createElement('button');
+      btn.setAttribute('aria-label', item.caption);
+      btn.onclick = () => openGallery(key, offset + i);
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.alt = item.caption;
+      img.loading = 'lazy';
+      btn.appendChild(img);
+      el.appendChild(btn);
+    });
+  }
+
+  function openGallery(key, index){
+    currentGallery = key;
+    currentIndex = index;
+    renderLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeGallery(){
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function stepGallery(dir){
+    const items = galleries[currentGallery];
+    currentIndex = (currentIndex + dir + items.length) % items.length;
+    renderLightbox();
+  }
+
+  function renderLightbox(){
+    const items = galleries[currentGallery];
+    const item = items[currentIndex];
+    document.getElementById('lightbox-img').src = item.src;
+    document.getElementById('lightbox-img').alt = item.caption;
+    document.getElementById('lightbox-caption').textContent = item.caption;
+    document.getElementById('lightbox-count').textContent = (currentIndex + 1) + ' / ' + items.length;
+  }
+
+  document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox') closeGallery();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeGallery();
+    if (e.key === 'ArrowLeft') stepGallery(-1);
+    if (e.key === 'ArrowRight') stepGallery(1);
+  });
+
+  buildStrips();
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  function updateActiveLink(){
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    let current = '';
+    sections.forEach(section => {
+      const top = section.offsetTop;
+      if (window.pageYOffset >= top - 200) current = section.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', updateActiveLink);
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
