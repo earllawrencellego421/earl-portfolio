@@ -1,25 +1,34 @@
 earl-portfolio/
+├── earlrs8ph/
+│   ├── about/
+│   │   ├── about1.png
+│   │   └── about2.png
+│   ├── contact/
+│   │   └── contact1.png
+│   └── home/
+│       ├── home1.png
+│       ├── home2.png
+│       └── home3.png
 ├── Enrollment System/
 │   ├── phone/
-│   │   ├── loginuser1.png
-│   │   ├── loginuser2.png
-│   │   ├── user1.png
-│   │   ├── user2.png
-│   │   ├── user3.png
-│   │   ├── useregister1.png
-│   │   ├── useregister2.png
-│   │   └── userlogin.png
+│   │   ├── loginuser1.jpg
+│   │   ├── loginuser2.jpg
+│   │   ├── useregister1.jpg
+│   │   ├── useregister2.jpg
+│   │   ├── userlogin.jpg
+│   │   ├── user1.jpg
+│   │   ├── user2.jpg
+│   │   └── user3.jpg
 │   ├── admin documents.png
 │   ├── adminaccepted.png
 │   ├── admindashboard.png
 │   ├── admindelete.png
 │   ├── adminpending.png
 │   └── landingpage.png
-│
 ├── Online Flight Booking System/
 │   ├── OnlineFlightBookingSystemadmin.png
 │   ├── OnlineFlightBookingSystemuser1.png
 │   └── OnlineFlightBookingSystemuser2.png
-│
 ├── earl.jpg
-└── index.html
+├── index.html
+└── organizefolder.txt

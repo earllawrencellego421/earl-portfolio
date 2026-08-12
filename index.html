@@ -668,6 +668,34 @@
         <p class="strip-label">Screens</p>
         <div class="strip-wrap"><div class="project-strip" id="strip-flight"></div></div>
       </div>
+
+      <!-- earlrs8ph -->
+      <div class="project reveal">
+        <div class="project-head">
+          <div>
+            <h3>earlrs8ph Web Portfolio</h3>
+            <p>A web development project featuring structured design across multiple pages, including a home interface, about section, and contact layout. Hosted live via GitHub Pages.</p>
+            <a href="https://earllawrencellego421.github.io/earlrs8ph/" target="_blank" rel="noopener" class="repo-link">
+              <img src="https://cdn.simpleicons.org/github/AFC7CE" alt=""> View Live on GitHub Pages
+            </a>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Web Design</span>
+            <span class="tech-tag">HTML/CSS</span>
+            <span class="tech-tag">GitHub Pages Deployment</span>
+          </div>
+        </div>
+        <button class="cover-btn" onclick="openGallery('earlrs8ph',0,this)">
+          <img src="earlrs8ph/home/home1.png" alt="earlrs8ph home page">
+          <div class="cover-overlay">
+            <span class="view">Browse all screens</span>
+            <span class="count">6 images</span>
+          </div>
+        </button>
+        <p class="strip-label">Screens</p>
+        <div class="strip-wrap"><div class="project-strip" id="strip-earlrs8ph"></div></div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -831,6 +859,14 @@
       { src:"Online%20Flight%20Booking%20System/OnlineFlightBookingSystemadmin.png", caption:"Admin panel" },
       { src:"Online%20Flight%20Booking%20System/OnlineFlightBookingSystemuser1.png", caption:"Booking flow — step 1" },
       { src:"Online%20Flight%20Booking%20System/OnlineFlightBookingSystemuser2.png", caption:"Booking flow — step 2" }
+    ],
+    earlrs8ph: [
+      { src:"earlrs8ph/home/home1.png", caption:"Home - View 1" },
+      { src:"earlrs8ph/home/home2.png", caption:"Home - View 2" },
+      { src:"earlrs8ph/home/home3.png", caption:"Home - View 3" },
+      { src:"earlrs8ph/about/about1.png", caption:"About - View 1" },
+      { src:"earlrs8ph/about/about2.png", caption:"About - View 2" },
+      { src:"earlrs8ph/contact/contact1.png", caption:"Contact Page" }
     ]
   };
 
@@ -855,6 +891,7 @@
     fillStrip('strip-enrollment-desktop','enrollment', galleries.enrollment.slice(0,6), 0);
     fillStrip('strip-enrollment-mobile','enrollment', galleries.enrollment.slice(6), 6);
     fillStrip('strip-flight','flight', galleries.flight, 0);
+    fillStrip('strip-earlrs8ph','earlrs8ph', galleries.earlrs8ph, 0);
   }
 
   /* hide the "more" fade once a strip is scrolled to the end (or doesn't overflow) */
