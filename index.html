@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -421,6 +420,48 @@
   .skill .note{ margin-top:1rem; font-size:.88rem; color:var(--ink-2); max-width:70ch; }
   @media (min-width:900px){ .skill.feature{ display:grid; grid-template-columns:auto 1fr; gap:2rem; align-items:center; } .skill.feature h3{ margin:0; } }
 
+  /* ---------------- Certificates ---------------- */
+  .cert-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1.2rem; margin-top:2.6rem; }
+  .cert-card{
+    display:flex; flex-direction:column; text-align:left; width:100%;
+    background:var(--panel); border:1px solid var(--line-soft); border-radius:var(--radius);
+    overflow:hidden; padding:0; cursor:pointer; font:inherit; color:inherit;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .cert-card:hover, .cert-card:focus-visible{ transform:translateY(-4px); border-color:var(--amber-line); box-shadow:0 18px 44px rgba(0,0,0,.25); }
+  .cert-thumb{ position:relative; background:var(--ground-2); aspect-ratio:4/3; overflow:hidden; border-bottom:1px solid var(--line-soft); }
+  .cert-thumb img{ width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
+  .cert-card:hover .cert-thumb img{ transform:scale(1.05); }
+  .cert-overlay{
+    position:absolute; inset:0; display:flex; align-items:flex-end;
+    padding:.9rem; background:linear-gradient(to top, rgba(11,27,38,.88), transparent 60%);
+    opacity:0; transition:opacity .3s ease;
+    font-family:var(--f-mono); font-size:.76rem; color:var(--amber-light);
+  }
+  .cert-card:hover .cert-overlay, .cert-card:focus-visible .cert-overlay{ opacity:1; }
+  @media (hover:none){ .cert-overlay{ opacity:1; background:linear-gradient(to top, rgba(11,27,38,.78), transparent 55%); } }
+  .cert-info{ padding:1.05rem 1.2rem 1.2rem; }
+  .cert-info h3{ font-family:var(--f-display); font-weight:700; font-size:1rem; color:var(--ink); letter-spacing:-.01em; margin-bottom:.3rem; }
+  .cert-info p{ font-family:var(--f-mono); font-size:.76rem; color:var(--ink-2); letter-spacing:.02em; }
+  .cert-info .issuer{ color:var(--amber-light); }
+
+  /* tiled watermark overlay — repeats a rotated name/label across the image so a
+     screenshot still carries attribution back to this portfolio */
+  .wm-tile{
+    position:absolute; inset:0; pointer-events:none; z-index:2;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='140'><text x='0' y='75' font-family='IBM Plex Mono, monospace' font-size='13' letter-spacing='2' fill='rgba(234,243,244,0.20)' transform='rotate(-27 130 70)'>EARL L. LLEGO · PORTFOLIO COPY</text></svg>");
+    background-repeat:repeat;
+  }
+  /* block the easy "save" paths: right-click menu, drag-out, long-press save-sheet.
+     none of this stops a real screenshot — it just removes the one-tap ways to grab a copy */
+  .no-save{
+    -webkit-user-select:none; user-select:none;
+    -webkit-user-drag:none; -khtml-user-drag:none; -moz-user-drag:none; -o-user-drag:none;
+    -webkit-touch-callout:none;
+    pointer-events:none;
+  }
+
   /* ---------------- Path (timeline) ---------------- */
   .timeline{ margin-top:2.6rem; position:relative; padding-left:1.6rem; }
   .timeline::before{ content:""; position:absolute; left:5px; top:.4rem; bottom:.4rem; width:2px; background:var(--line); }
@@ -590,13 +631,14 @@
 <nav id="siteNav">
   <div class="nav-inner">
     <a href="#home" class="brand" aria-label="Home">
-      <img src="earl.jpg" alt="Earl Lawrence L. Llego" width="34" height="34">
+      <img class="no-save" src="earl.jpg" alt="Earl Lawrence L. Llego" width="34" height="34" draggable="false" oncontextmenu="return false">
       <span class="who"><b>Earl Lawrence Llego</b><span>BSIT · OJT applicant</span></span>
     </a>
     <ul class="nav-links">
       <li><a href="#home" class="active">home</a></li>
       <li><a href="#work">work</a></li>
       <li><a href="#skills">skills</a></li>
+      <li><a href="#certs">certs</a></li>
       <li><a href="#path">path</a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
@@ -609,6 +651,7 @@
       <a href="#home">home</a>
       <a href="#work">work</a>
       <a href="#skills">skills</a>
+      <a href="#certs">certs</a>
       <a href="#path">path</a>
       <a href="#contact">contact</a>
     </div>
@@ -644,7 +687,8 @@
         </svg>
       </div>
       <div class="node-body">
-        <img src="earl.jpg" alt="Portrait of Earl Lawrence L. Llego" width="600" height="600" loading="eager" fetchpriority="high">
+        <img class="no-save" src="earl.jpg" alt="Portrait of Earl Lawrence L. Llego" width="600" height="600" loading="eager" fetchpriority="high" draggable="false" oncontextmenu="return false">
+        <div class="wm-tile"></div>
       </div>
       <div class="node-foot">
         <div><div class="k">status</div><div class="v"><span class="g">● online</span></div></div>
@@ -828,6 +872,40 @@
   </div>
 </section>
 
+<!-- Certificates -->
+<section id="certs" class="section">
+  <div class="wrap">
+    <p class="eyebrow reveal">credentials</p>
+    <h2 class="h2 reveal">Certificates</h2>
+    <p class="lede reveal">Trainings and workshops I've completed. Tap a card to view the full certificate.</p>
+
+    <div class="cert-grid">
+      <button class="cert-card reveal" onclick="openGallery('certs',0,this)">
+        <div class="cert-thumb">
+          <img class="no-save" src="CERTIFICATE/IACADEMY.jpg" alt="Certificate of Participation from iACADEMY" loading="lazy" draggable="false" oncontextmenu="return false">
+          <div class="wm-tile"></div>
+          <div class="cert-overlay"><span>View certificate →</span></div>
+        </div>
+        <div class="cert-info">
+          <h3>Certificate of Participation</h3>
+          <p class="issuer">iACADEMY</p>
+        </div>
+      </button>
+      <button class="cert-card reveal" onclick="openGallery('certs',1,this)">
+        <div class="cert-thumb">
+          <img class="no-save" src="CERTIFICATE/ONLINECSWORKSHOP.jpg" alt="Certificate from the Online CS Workshop" loading="lazy" draggable="false" oncontextmenu="return false">
+          <div class="wm-tile"></div>
+          <div class="cert-overlay"><span>View certificate →</span></div>
+        </div>
+        <div class="cert-info">
+          <h3>Certificate of Completion</h3>
+          <p class="issuer">Online CS Workshop</p>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
+
 <!-- Path -->
 <section id="path" class="section">
   <div class="wrap">
@@ -881,6 +959,7 @@
       <a href="#home">home</a>
       <a href="#work">work</a>
       <a href="#skills">skills</a>
+      <a href="#certs">certs</a>
       <a href="#path">path</a>
       <a href="#contact">contact</a>
     </div>
@@ -895,6 +974,7 @@
   <div class="lightbox-inner">
     <div class="lightbox-stage">
       <img id="lightbox-img" src="" alt="">
+      <div class="wm-tile" id="lightbox-wm" style="display:none;"></div>
       <div class="lightbox-spinner" id="lightbox-spinner"></div>
       <button class="lb-arrow prev" onclick="stepGallery(-1)" aria-label="Previous image">←</button>
       <button class="lb-arrow next" onclick="stepGallery(1)" aria-label="Next image">→</button>
@@ -942,6 +1022,10 @@
       { src:"earlrs9ph/about/about1.png", caption:"About - View 1" },
       { src:"earlrs9ph/about/about2.png", caption:"About - View 2" },
       { src:"earlrs9ph/contact/contact1.png", caption:"Contact Page" }
+    ],
+    certs: [
+      { src:"CERTIFICATE/IACADEMY.jpg", caption:"Certificate of Participation — iACADEMY" },
+      { src:"CERTIFICATE/ONLINECSWORKSHOP.jpg", caption:"Certificate of Completion — Online CS Workshop" }
     ]
   };
 
@@ -949,6 +1033,22 @@
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightbox-img');
   const lbSpin = document.getElementById('lightbox-spinner');
+  const lbWm = document.getElementById('lightbox-wm');
+
+  /* size/position the watermark tile to sit exactly over the rendered image,
+     not the whole stage (the image is centered and doesn't always fill it) */
+  function positionWatermark(){
+    if(currentGallery !== 'certs' || !lbImg.naturalWidth){ lbWm.style.display = 'none'; return; }
+    const stageRect = lbImg.parentElement.getBoundingClientRect();
+    const imgRect = lbImg.getBoundingClientRect();
+    lbWm.style.display = 'block';
+    lbWm.style.left = (imgRect.left - stageRect.left) + 'px';
+    lbWm.style.top = (imgRect.top - stageRect.top) + 'px';
+    lbWm.style.width = imgRect.width + 'px';
+    lbWm.style.height = imgRect.height + 'px';
+    lbWm.style.inset = 'auto';
+  }
+  window.addEventListener('resize', positionWatermark);
 
   function fillStrip(elId, key, items, offset){
     const el = document.getElementById(elId);
@@ -1018,8 +1118,13 @@
   }
   function renderLightbox(){
     const item = galleries[currentGallery][currentIndex];
+    const isCert = currentGallery === 'certs';
     lbImg.classList.add('loading'); lbSpin.classList.add('on');
-    lbImg.onload = () => { lbImg.classList.remove('loading'); lbSpin.classList.remove('on'); };
+    lbImg.classList.toggle('no-save', isCert);
+    lbImg.draggable = !isCert;
+    lbImg.oncontextmenu = isCert ? () => false : null;
+    lbWm.style.display = 'none';
+    lbImg.onload = () => { lbImg.classList.remove('loading'); lbSpin.classList.remove('on'); positionWatermark(); };
     lbImg.onerror = () => { lbImg.classList.remove('loading'); lbSpin.classList.remove('on'); };
     lbImg.src = item.src;
     lbImg.alt = item.caption;
